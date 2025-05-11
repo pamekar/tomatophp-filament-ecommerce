@@ -3,7 +3,7 @@
 namespace TomatoPHP\FilamentEcommerce\Services\Traits;
 
 use Illuminate\Http\Request;
-use TomatoPHP\TomatoCrm\Models\Location;
+use TomatoPHP\FilamentLocations\Models\Location;
 
 trait UpdateAccountMeta
 {
@@ -21,15 +21,16 @@ trait UpdateAccountMeta
         $account->meta('shipper_id', $request->get('shipper_id'));
 
         //Create New Location
-        $checkIfLocationExists = Location::where('account_id', $account->id)
-            ->where('street', $request->get('address'))
+        $checkIfLocationExists = Location::where('model_id', $account->id)
+            ->where('model_type', 'account')
             ->where('city_id', $request->get('city_id'))
             ->where('country_id', $request->get('country_id'))
             ->where('area_id', $request->get('area_id'))
             ->first();
         if(!$checkIfLocationExists){
             $location = new Location();
-            $location->account_id = auth('accounts')->user()->id;
+            $location->model_id = $account->id;
+            $location->model_type = 'account';
             $location->street = $request->get('address');
             $location->city_id = $request->get('city_id');
             $location->country_id = $request->get('country_id');

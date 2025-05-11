@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use TomatoPHP\FilamentEcommerce\Models\Cart;
 use ProtoneMedia\Splade\Facades\Toast;
-use TomatoPHP\TomatoProducts\Models\Product;
+use TomatoPHP\FilamentEcommerce\Models\Product;
 
 trait StoreCart
 {
